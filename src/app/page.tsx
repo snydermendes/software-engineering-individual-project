@@ -35,7 +35,7 @@ export default function Home() {
   const removeOrClearClerk = (name: string) => {
     for (const c of model.clerks) {
       if (c.name === name) {
-        if (c.removeOrClear === "Clear") {
+        if (!c.isAvailable()) {
           model.clearClerk(name)
         } else {
           model.removeClerk(name)
@@ -69,8 +69,8 @@ export default function Home() {
     <h1 className={styles.title}>Welcome to the DMV</h1>
     <div className={styles.columns}>
       <div className={styles.section}>
-        <b>Visitor Reason: </b><input id="reason" type="text"/>
-        <button className={styles.button} onClick={() => addVisitor()}><b>Add Visitor</b></button>
+        <b>Visitor Reason: </b><input data-testid="reason" id="reason" type="text"/>
+        <button data-testid="addVisitor" className={styles.button} onClick={() => addVisitor()}><b>Add Visitor</b></button>
 
         <h2 className={styles.gap}>Waiting Area</h2>
         {
@@ -82,8 +82,8 @@ export default function Home() {
         }
       </div>
       <div className={styles.section}>
-        <b>Add Clerk: </b><input id="clerkName" type="text"/>
-        <button className={styles.button} onClick={() => addClerk()}><b>Add Clerk</b></button>
+        <b>Add Clerk: </b><input data-testid="clerkName" id="clerkName" type="text"/>
+        <button data-testid="addClerk" className={styles.button} onClick={() => addClerk()}><b>Add Clerk</b></button>
 
         <h2 className={styles.gap}>Clerks</h2>
         {
@@ -91,7 +91,7 @@ export default function Home() {
             <div key={c.name}>
               <b>{c.name}</b>
               <div>Current Visitor: {c.currentVisitor ? `#${c.currentVisitor.id}` : "None"}
-                <button className={styles.button} onClick={() => removeOrClearClerk(c.name)}><b>{c.removeOrClear} Clerk</b></button>
+                <button data-testid={c.name} className={styles.button} onClick={() => removeOrClearClerk(c.name)}><b>{c.removeOrClear} Clerk</b></button>
               </div>
               <div className={styles.gap}>Visitors Helped: {c.visitorsHelped}</div>
             </div>
@@ -101,13 +101,13 @@ export default function Home() {
       <div className={styles.section}>
         <h2 className={styles.gap}>Assign a Clerk</h2>
         <div className={styles.gap}>
-          <b>Visitor ID: </b><input id="vId" type="text"/>
+          <b>Visitor ID: </b><input data-testid="vId" id="vId" type="text"/>
         </div>
         <div className={styles.gap}>
-          <b>Clerk Name: </b><input id="cName" type="text"/>
+          <b>Clerk Name: </b><input data-testid="cName" id="cName" type="text"/>
         </div>
         <div>
-          <button className={styles.noMarginButton} onClick={() => assignVisitor()}><b>Assign</b></button>
+          <button data-testid="assignVisitor" className={styles.noMarginButton} onClick={() => assignVisitor()}><b>Assign</b></button>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-// vite.config.js
+   // vite.config.js
     import { defineConfig } from 'vite';
     import react from '@vitejs/plugin-react';
 
@@ -7,5 +7,11 @@
       test: {
         globals: true, // Optional: if you want global APIs like 'expect'
         environment: 'jsdom', // Recommended for React component testing
+        coverage: {
+          include: ['src/**/*.{ts,tsx}'], 
+          exclude: [
+            '**/layout.tsx',   // remove layout.tsx
+          ]
+        }
       },
     });
